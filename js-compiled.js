@@ -677,6 +677,9 @@ function Fa(a) {
     "move-button" == b && (a.c = new Ba(a.b));
     "text-button" == b && (a.c = new Aa(a.b));
     "select-button" == b && (a.c = new wa(a.b));
+    "diamond-button" == b && (a.c = new DiamondTool(a.b));
+    "rounded-rectangle-button" == b && (a.c = new RoundedRectangleTool(a.b));
+    "ellipse-button" == b && (a.c = new EllipseTool(a.b));
     Q(a.b);
     a.a.b.focus();
   });
@@ -890,3 +893,126 @@ new function(a, b) {
 }(Va, Wa);
 ta(Wa);
 
+function DiamondTool(a) {
+  this.a = a;
+  this.b = null;
+}
+
+DiamondTool.prototype.start = function(a) {
+  this.b = a;
+};
+
+DiamondTool.prototype.i = function(a) {
+  S(this.a);
+  drawDiamond(this.a, this.b, a);
+};
+
+DiamondTool.prototype.m = function() {
+  Q(this.a);
+};
+
+DiamondTool.prototype.o = function() {
+  return "crosshair";
+};
+
+DiamondTool.prototype.j = function() {};
+
+function drawDiamond(canvas, start, end) {
+  // 实现绘制菱形的逻辑
+  // 示例：假设使用字符"/"和"\"
+  var centerX = Math.floor((start.x + end.x) / 2);
+  var centerY = Math.floor((start.y + end.y) / 2);
+  var width = Math.abs(end.x - start.x);
+  var height = Math.abs(end.y - start.y);
+
+  for (var i = 0; i <= height; i++) {
+    var offset = Math.floor((i / height) * (width / 2));
+    P(canvas, new p(centerX - offset, centerY - i), '/');
+    P(canvas, new p(centerX + offset, centerY - i), '\\');
+    P(canvas, new p(centerX - offset, centerY + i), '\\');
+    P(canvas, new p(centerX + offset, centerY + i), '/');
+  }
+}
+
+function RoundedRectangleTool(a) {
+  this.a = a;
+  this.b = null;
+}
+
+RoundedRectangleTool.prototype.start = function(a) {
+  this.b = a;
+};
+
+RoundedRectangleTool.prototype.i = function(a) {
+  S(this.a);
+  drawRoundedRectangle(this.a, this.b, a);
+};
+
+RoundedRectangleTool.prototype.m = function() {
+  Q(this.a);
+};
+
+RoundedRectangleTool.prototype.o = function() {
+  return "crosshair";
+};
+
+RoundedRectangleTool.prototype.j = function() {};
+
+function drawRoundedRectangle(canvas, start, end) {
+  // 实现绘制圆角矩形的逻辑
+  // 示例：假设使用字符"("和")"
+  var width = Math.abs(end.x - start.x);
+  var height = Math.abs(end.y - start.y);
+
+  for (var x = start.x; x <= end.x; x++) {
+    P(canvas, new p(x, start.y), '-');
+    P(canvas, new p(x, end.y), '-');
+  }
+  for (var y = start.y; y <= end.y; y++) {
+    P(canvas, new p(start.x, y), '|');
+    P(canvas, new p(end.x, y), '|');
+  }
+  P(canvas, new p(start.x, start.y), '(');
+  P(canvas, new p(end.x, start.y), ')');
+  P(canvas, new p(start.x, end.y), '(');
+  P(canvas, new p(end.x, end.y), ')');
+}
+
+function EllipseTool(a) {
+  this.a = a;
+  this.b = null;
+}
+
+EllipseTool.prototype.start = function(a) {
+  this.b = a;
+};
+
+EllipseTool.prototype.i = function(a) {
+  S(this.a);
+  drawEllipse(this.a, this.b, a);
+};
+
+EllipseTool.prototype.m = function() {
+  Q(this.a);
+};
+
+EllipseTool.prototype.o = function() {
+  return "crosshair";
+};
+
+EllipseTool.prototype.j = function() {};
+
+function drawEllipse(canvas, start, end) {
+  // 实现绘制椭圆的逻辑
+  // 示例：假设使用字符"o"
+  var centerX = Math.floor((start.x + end.x) / 2);
+  var centerY = Math.floor((start.y + end.y) / 2);
+  var width = Math.abs(end.x - start.x) / 2;
+  var height = Math.abs(end.y - start.y) / 2;
+
+  for (var x = -width; x <= width; x++) {
+    var y = Math.floor(height * Math.sqrt(1 - (x * x) / (width * width)));
+    P(canvas, new p(centerX + x, centerY + y), 'o');
+    P(canvas, new p(centerX + x, centerY - y), 'o');
+  }
+}
