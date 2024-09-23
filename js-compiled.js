@@ -739,104 +739,19 @@ function Fa(a) {
     Q(a.b);
   });
 }
-;function Ga(a, b) {
-  window.gapi.auth.authorize({client_id:"125643747010-9s9n1ne2fnnuh5v967licfkt83r4vba5.apps.googleusercontent.com", scope:"https://www.googleapis.com/auth/drive", A:b}, function(c) {
-    !c || c.error || a.f || (a.f = !0, $("#drive-button").addClass("active"), window.setTimeout(function() {
-      Ha(a);
-    }, 500));
-  });
-}
-function Ia(a) {
-  window.gapi && window.gapi.auth && window.gapi.auth.authorize ? Ga(a, !0) : window.setTimeout(function() {
-    Ia(a);
-  }, 500);
-}
-function Ja(a) {
-  window.setTimeout(function() {
-    a.f ? Ka(a) : (Ga(a, !0), Ja(a));
-  }, 1E3);
-}
-function La(a, b) {
-  a.a = b;
-  $("#drive-filename").text(b.title);
-  window.location.hash = b.id;
-}
-function Ka(a) {
-  $("#drive-dialog").addClass("visible");
-  var b = U(a.b);
-  5 < b.length && b != a.c && Z(a);
-  Ma();
-}
-function Ma() {
-  Na(window.gapi.client.request({path:"/drive/v2/files", params:{q:"mimeType = 'text/plain' and trashed = false"}, method:"GET"}), function(a) {
-    $("#drive-file-list").children().remove();
-    a = a.items;
-    for (var b in a) {
-      var c = document.createElement("li"), e = document.createElement("a");
-      c.appendChild(e);
-      e.href = "#" + a[b].id;
-      $(e).click(function() {
-        $("#drive-dialog").removeClass("visible");
-      });
-      e.innerHTML = a[b].title;
-      $("#drive-file-list").append(c);
-    }
-  });
-}
-function Na(a, b) {
-  try {
-    a.execute(function(a) {
-      a.error || b(a);
-    });
-  } catch (c) {
-  }
-}
-function Oa(a) {
-  U(a.b) != a.c && a.a && a.a.editable && Z(a);
-  window.setTimeout(function() {
-    Oa(a);
-  }, 5E3);
-}
-function Z(a) {
-  var b = U(a.b);
-  $("#drive-save-state").text("Saving...");
-  Na(Pa(a, b), function(c) {
-    La(a, c);
-    $("#drive-save-state").text("Saved");
-    a.c = b;
-  });
-}
-function Ha(a) {
-  1 < window.location.hash.length && ($("#drive-save-state").text("Loading..."), Na(window.gapi.client.request({path:"/drive/v2/files/" + window.location.hash.substr(1, window.location.hash.length - 1), method:"GET"}), function(b) {
-    La(a, b);
-    Qa(a);
-  }));
-}
-function Qa(a) {
-  Ra(a.a.downloadUrl, function(b) {
-    $("#drive-save-state").text("Loaded");
-    O(a.b);
-    qa(a.b, b, W(a.g, new p(a.g.b.width / 2, a.g.b.height / 2)));
-    Q(a.b);
-    a.c = U(a.b);
-  });
-}
-function Pa(a, b) {
-  var c = "\r\n---------314159265358979323846\r\nContent-Type: application/json\r\n\r\n" + JSON.stringify({title:a.a ? a.a.title : "Untitled ASCII Diagram", mimeType:"text/plain"}) + "\r\n---------314159265358979323846\r\nContent-Type: text/plain\r\n\r\n" + b + "\r\n---------314159265358979323846--";
-  return window.gapi.client.request({method:a.a ? "PUT" : "POST", path:"/upload/drive/v2/files" + (a.a ? "/" + a.a.id : ""), params:{uploadType:"multipart"}, headers:{"Content-Type":'multipart/mixed; boundary="-------314159265358979323846"'}, body:c});
-}
-function Ra(a, b) {
-  var c = window.gapi.auth.getToken().access_token, e = new XMLHttpRequest;
-  e.open("GET", a);
-  e.setRequestHeader("Authorization", "Bearer " + c);
-  e.onload = function() {
-    b(e.responseText);
-  };
-  e.onerror = function() {
-    b(null);
-  };
-  e.send();
-}
+;function Ga(a, b) {}
+function Ia(a) {}
+function Ja(a) {}
+function La(a, b) {}
+function Ka(a) {}
+function Ma() {}
+function Na(a, b) {}
+function Oa(a) {}
+function Z(a) {}
+function Ha(a) {}
+function Qa(a) {}
+function Pa(a, b) {}
+function Ra(a, b) {}
 ;function Sa(a) {
   var b = $(a.a.a.b);
   b.on("mousewheel", function(c) {
@@ -967,26 +882,11 @@ new function(a, b) {
   this.a = null;
   this.c = "";
   Ia(this);
-  $("#drive-button").click(function() {
-    c.f ? Ka(c) : (Ga(c, !1), Ja(c));
-  });
-  $("#drive-filename").click(function() {
-    var a = "" + $("#drive-filename").text(), a = prompt("Enter new filename:", a);
-    c.a.title = a;
-    Z(c);
-    Ma();
-  });
+  $("#drive-button").click(function() {});
+  $("#drive-filename").click(function() {});
   Oa(this);
-  $(window).on("hashchange", function() {
-    Ha(c);
-  });
-  $("#drive-new-file-button").click(function() {
-    c.a = null;
-    O(c.b);
-    window.location.hash = "";
-    Z(c);
-    $("#drive-dialog").removeClass("visible");
-  });
+  $(window).on("hashchange", function() {});
+  $("#drive-new-file-button").click(function() {});
 }(Va, Wa);
 ta(Wa);
 
